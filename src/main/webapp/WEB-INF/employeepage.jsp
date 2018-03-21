@@ -10,10 +10,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee home page</title>
+        <%@include file="includes/links.jsp" %>
     </head>
+    <%@include file="includes/employeeNav.jsp" %>
     <body>
-        
-        <h1>Hello <%=request.getParameter( "email")%> </h1>
-        You are now logged in as a EMPLOYEE of our wonderful site.
+        <div class="container">
+
+            <h1>Hello <%= session.getAttribute("name")%> </h1>
+            You are now logged in as a EMPLOYEE of our wonderful site.
+        </div>  
     </body>
 </html>
