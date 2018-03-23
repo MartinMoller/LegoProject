@@ -72,8 +72,8 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
-        public static ArrayList<Order> getAllOrders() throws LoginSampleException {
+
+    public static ArrayList<Order> getAllOrders() throws LoginSampleException {
         try {
             ArrayList<Order> orders = new ArrayList<>();
             Connection conn = Connector.connection();
@@ -91,6 +91,30 @@ public class OrderMapper {
 
             }
             return orders;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+
+    }
+
+    public static Order getOrder(int id) throws LoginSampleException {
+        try {
+            Order order = null;
+            Connection conn = Connector.connection();
+            String SQL = "SELECT * FROM Orders WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int height = rs.getInt("height");
+                int status = rs.getInt("status");
+                int userId = rs.getInt("fk_userId");
+                order = new Order(id, length, width, height, userId, status);
+            }
+            return order;
 
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());

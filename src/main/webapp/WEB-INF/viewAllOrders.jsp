@@ -17,7 +17,7 @@
     <%@include file="includes/employeeNav.jsp" %>
     <body>
         <div class="container">
-            <h2>Dine ordre</h2>
+            <h2>Alle ordre</h2>
 
             <table class="table table-hover">
                 <thead>
@@ -32,31 +32,33 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <c:forEach items="${orders}" var="order">
+                        <tr>
+                            <td>${order.getId()}</td>
+                            <td>${order.getLength()}</td>
+                            <td>${order.getWidth()}</td>
+                            <td>${order.getHeight()}</td>
+                            <c:choose>
+                                <c:when test="${order.getStatus()=='0'}">
+                                    <td>Ikke afsendt</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>Afsendt</td>
+                                </c:otherwise>
+                            </c:choose>
 
-                    <%
-                        for (Order order : (ArrayList<Order>) request.getAttribute("orders")) {
+
+                            <td><a href="FrontController?command=getbricks&id=${order.getId()}">Stykliste</a></td>
+                            <td>
+                                <c:if test="${order.getStatus()=='0'}">
+                                    <a class="btn btn-primary" href="FrontController?command=sendorder&id=${order.getId()}">Marker som afsendt</a>    
+                                </c:if>
+                            </td>
+                        </c:forEach>
 
 
-                    %>
-                    <tr>
-                        <td><%= order.getId()%></td>
-                        <td><%= order.getLength()%></td>
-                        <td><%= order.getWidth()%></td>
-                        <td><%= order.getHeight()%></td>
-                        <% if (order.getStatus() == 0) {
-                        %>
-                        <td>Ikke afsendt</td>
-                        <% } else if (order.getStatus() == 1) {
-                        %>
-                        <td>Afsendt</td>
-                        <%}%>
-
-                        <% if (order.getStatus() == 0) {
-                        %>
-                        <td><a class="btn btn-primary" href="FrontController?command=sendorder&id=<%=order.getId()%>">Marker som afsendt</a></td>
-                        <%}%>
                     </tr>
-                    <% }%>
+
                 </tbody>
             </table>
         </div>

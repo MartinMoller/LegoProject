@@ -5,7 +5,11 @@
  */
 package PresentationLayer;
 
+import FunctionLayer.Brick;
+import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +21,14 @@ public class GetBricks extends Command{
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int id = Integer.parseInt(request.getParameter("id"));
+        HashMap<String, ArrayList<Brick>> bricks = LogicFacade.getBricks(id);
+        int height = LogicFacade.getOrder(id).getHeight();
+        
+        request.getSession().setAttribute("height", height);
+        request.getSession().setAttribute("bricks", bricks);
+        
+        return "bricks";
     }
     
 }

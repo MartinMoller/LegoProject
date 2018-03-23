@@ -32,29 +32,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <c:forEach items="${orders}" var="order">
+                        <tr>
+                            <td>${order.getId()}</td>
+                            <td>${order.getLength()}</td>
+                            <td>${order.getWidth()}</td>
+                            <td>${order.getHeight()}</td>
+                            <c:choose>
+                                <c:when test="${order.getStatus()=='0'}">
+                                    <td>Ikke afsendt</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>Afsendt</td>
+                                </c:otherwise>
+                            </c:choose>
 
-                    <%
-                        for (Order order : (ArrayList<Order>) request.getAttribute("orders")) {
+
+                            <td><a href="FrontController?command=getbricks&id=${order.getId()}">Stykliste</a></td>
+                        </c:forEach>
 
 
-                    %>
-                    <tr>
-                        <td><%= order.getId()%></td>
-                        <td><%= order.getLength()%></td>
-                        <td><%= order.getWidth()%></td>
-                        <td><%= order.getHeight()%></td>
-                        <% if (order.getStatus() == 0) {
-                        %>
-                        <td>Ikke afsendt</td>
-                        <% } else if (order.getStatus() == 1) {
-                        %>
-                        <td>Afsendt</td>
-                        <%}%>
-                        <td><a href="FrontController?command=getbricks">Stykliste</a></td>
 
-                     
+
+
+
                     </tr>
-                    <% }%>
+
                 </tbody>
             </table>
         </div>
