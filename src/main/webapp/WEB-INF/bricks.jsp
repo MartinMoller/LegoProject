@@ -30,6 +30,31 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>Dør</td>
+                        <c:set var="door" value="0" scope="page"/>
+                        <c:forEach items="${bricks['door']}" var="bricks">
+                            <c:set var="door" value="${door + 1}" scope="page"/>
+                        </c:forEach>
+                        <td>${door}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>${door}</td>
+                    </tr>
+                    <tr>
+                        <td>Vindue</td>
+                        <c:set var="window" value="0" scope="page"/>
+                        <c:forEach items="${bricks['window']}" var="bricks">
+                            <c:set var="window" value="${window + 1}" scope="page"/>
+                        </c:forEach>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>${window}</td>
+                        <td>0</td>
+                        <td>${window}</td>
+                    </tr>
+
+                    <tr>
                         <td>2x1</td>
                         <c:set var="count1" value="0" scope="page" />
                         <c:forEach items="${bricks['2x1length']}" var="bricks">
@@ -43,7 +68,7 @@
                         <td>${count2}</td>
                         <td>${count1}</td>
                         <td>${count2}</td>
-                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height/2)}"/>
+                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height)}"/>
                         <td>${total}</td>
                     </tr>
                     <tr>
@@ -60,8 +85,10 @@
                         <td>${count2}</td>
                         <td>${count1}</td>
                         <td>${count2}</td>
-                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height/2)}"/>
+
+                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height)}"/>
                         <td>${total}</td>
+
                     </tr>
                     <tr>
                         <td>2x4</td>
@@ -77,16 +104,19 @@
                         <td>${count2}</td>
                         <td>${count1}</td>
                         <td>${count2}</td>
-
-                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height/2)}"/>
+                        <c:set var="total" value="${(count1 * 2 + count2 * 2) * (height)}"/>
+                        <c:choose>
+                            <c:when test="${door == 1}">
+                                <c:set var="total" value="${total - 6}"/>        
+                            </c:when>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${window == 1}">
+                                <c:set var="total" value="${total - 4}"/>
+                            </c:when>
+                        </c:choose>
                         <td>${total}</td>
                     </tr>
-
-
-
-
-
-
 
                 </tbody>
             </table>

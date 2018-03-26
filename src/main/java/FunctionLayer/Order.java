@@ -17,22 +17,47 @@ public class Order {
     private int height;
     private int userId;
     private int status;
+    private String email;
+    private boolean door;
+    private boolean window;
 
-    public Order(int length, int width, int height, int userId, int status) {
+    public Order(int length, int width, int height, int userId, int status, boolean door, boolean window) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.userId = userId;
         this.status = status;
+        this.door = door;
+        this.window = window;
     }
 
-    public Order(int id, int length, int width, int height, int userId, int status) {
+    public Order(int id, int length, int width, int height, int userId, int status, boolean door, boolean window) {
+        this.id = id;
+        this.length = length;
+        this.width = width;
+        this.height = height;
+        this.userId = userId;
+        this.status = status;
+        this.door = door;
+        this.window = window;
+    }
+
+    public Order(int id, int length, int width, int height, int userId, int status, String email) {
         this.length = length;
         this.width = width;
         this.height = height;
         this.userId = userId;
         this.status = status;
         this.id = id;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getLength() {
@@ -81,6 +106,22 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean getDoor() {
+        return door;
+    }
+
+    public void setDoor(boolean door) {
+        this.door = door;
+    }
+
+    public boolean getWindow() {
+        return window;
+    }
+
+    public void setWindow(boolean window) {
+        this.window = window;
     }
 
 }

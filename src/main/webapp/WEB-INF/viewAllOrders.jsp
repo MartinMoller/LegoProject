@@ -26,6 +26,7 @@
                         <th>Længde</th>
                         <th>Bredde</th>
                         <th>Højde</th>
+                        <th>Kunde</th>
                         <th>Status</th>
                         <th></th>
 
@@ -38,9 +39,10 @@
                             <td>${order.getLength()}</td>
                             <td>${order.getWidth()}</td>
                             <td>${order.getHeight()}</td>
+                            <td>${order.getEmail()}</td>
                             <c:choose>
                                 <c:when test="${order.getStatus()=='0'}">
-                                    <td>Ikke afsendt</td>
+                                    <td>Afventer</td>
                                 </c:when>
                                 <c:otherwise>
                                     <td>Afsendt</td>

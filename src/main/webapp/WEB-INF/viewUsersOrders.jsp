@@ -40,7 +40,7 @@
                             <td>${order.getHeight()}</td>
                             <c:choose>
                                 <c:when test="${order.getStatus()=='0'}">
-                                    <td>Ikke afsendt</td>
+                                    <td>Afventer</td>
                                 </c:when>
                                 <c:otherwise>
                                     <td>Afsendt</td>

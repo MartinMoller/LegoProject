@@ -26,14 +26,30 @@
             <form name="order" action="FrontController" method="post">
                 <input type="hidden" name="command" value="order">
                 <label>Længde</label>
-                <input class="form-control" type="text" name="length"> 
+                <input class="form-control" type="number" min="1"  name="length"> 
                 <label>Bredde</label>
-                <input class="form-control" type="text" name="width">
+                <input class="form-control" type="number" min="4" name="width">
                 <label>Højde</label>
-                <input class="form-control" type="text" name="height">
+                <input class="form-control" type="number" min="1" name="height">
+                <label>Dør / Huset skal være mindst 6 højt for at få plads</label>
+                <br>
+                <input type="checkbox" name="door" value="true">
+                <br>
+                <label>Vindue / Huset skal være mindst 4 højt for at få plads</label>
+                <br>
+                <input type="checkbox" name="window" value="true">
                 <br>
                 <input class="btn btn-primary" type="submit" value="Bestil">
             </form>
+            
+             <% String error = (String) request.getAttribute("error");
+            if (error != null) {%>
+            <H2>Error!!</h2>
+            <p><%= error%>
+                <% }
+                %>
         </div>
+        
+        
     </body>
 </html>

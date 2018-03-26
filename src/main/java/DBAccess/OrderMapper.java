@@ -7,6 +7,7 @@ package DBAccess;
 
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
+import FunctionLayer.OrderErrorException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,20 +20,22 @@ import java.util.ArrayList;
  */
 public class OrderMapper {
 
-    public static void createOrder(Order order) throws LoginSampleException {
+        public static void createOrder(Order order) throws OrderErrorException {
         try {
 
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO Orders (length, width, height, fk_userId, status) VALUES (?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO Orders (length, width, height, fk_userId, status, door, window) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, order.getLength());
             ps.setInt(2, order.getWidth());
             ps.setInt(3, order.getHeight());
             ps.setInt(4, order.getUserId());
             ps.setInt(5, order.getStatus());
+            ps.setBoolean(6, order.getDoor());
+            ps.setBoolean(7, order.getWindow());
             ps.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderErrorException(ex.getMessage());
         }
     }
 
@@ -50,7 +53,9 @@ public class OrderMapper {
                 int width = rs.getInt("width");
                 int height = rs.getInt("height");
                 int status = rs.getInt("status");
-                orders.add(new Order(id, length, width, height, userId, status));
+                boolean door = rs.getBoolean("door");
+                boolean window = rs.getBoolean("window");
+                orders.add(new Order(id, length, width, height, userId, status, door, window));
 
             }
             return orders;
@@ -77,7 +82,7 @@ public class OrderMapper {
         try {
             ArrayList<Order> orders = new ArrayList<>();
             Connection conn = Connector.connection();
-            String SQL = "SELECT * FROM Orders";
+            String SQL = "SELECT * FROM Orders INNER JOIN Users ON Users.id = Orders.fk_userID";
             PreparedStatement ps = conn.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -87,7 +92,8 @@ public class OrderMapper {
                 int height = rs.getInt("height");
                 int status = rs.getInt("status");
                 int userId = rs.getInt("fk_userId");
-                orders.add(new Order(id, length, width, height, userId, status));
+                String email = rs.getString("email");
+                orders.add(new Order(id, length, width, height, userId, status, email));
 
             }
             return orders;
@@ -112,7 +118,9 @@ public class OrderMapper {
                 int height = rs.getInt("height");
                 int status = rs.getInt("status");
                 int userId = rs.getInt("fk_userId");
-                order = new Order(id, length, width, height, userId, status);
+                boolean door = rs.getBoolean("door");
+                boolean window = rs.getBoolean("window");
+                order = new Order(id, length, width, height, userId, status, door, window);
             }
             return order;
 

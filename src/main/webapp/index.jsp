@@ -49,7 +49,7 @@
                 </tr>
             </table>
 
-            <a href="FrontController?command=help">Help</a>
+           
 
             <% String error = (String) request.getAttribute("error");
             if (error != null) {%>
