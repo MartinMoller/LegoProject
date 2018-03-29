@@ -1,8 +1,8 @@
 # Logins
-Employee
-name = admin
+Employee,
+name = admin,
 password = 1234
 
-Customer
-name = customer
+Customer,
+name = customer,
 password = 1234
